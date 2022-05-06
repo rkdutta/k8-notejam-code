@@ -9,8 +9,7 @@ resources:
 - repo: self
 
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '2b2baeae-638d-4606-ab97-39f04a438969'
+  dockerRegistryServiceConnection: 'c3271305-4dab-41fa-8dcb-0d0edba9172b'
   imageRepository: 'nordcloud'
   containerRegistry: 'privatecontainerregitry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/spring/Dockerfile'
