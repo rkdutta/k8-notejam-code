@@ -1,0 +1,60 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '2b2baeae-638d-4606-ab97-39f04a438969'
+  imageRepository: 'nordcloud'
+  containerRegistry: 'privatecontainerregitry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/spring/Dockerfile'
+  tag: 'latest'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+pool:
+      vmImage: $(vmImageName)
+stages:
+- stage: Build
+  jobs:
+    - job: Build
+      steps: 
+      - task: Maven@3
+        displayName: Generating jar file
+        inputs:
+          mavenPomFile: 'spring/pom.xml'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+          goals: 'package'
+      - task: PowerShell@2
+        displayName: Creating target folder
+        inputs:
+          targetType: 'inline'
+          script: 'mkdir $(system.defaultWorkingDirectory)/target'
+      - task: CopyFiles@2
+        displayName: Publish jar file
+        inputs:
+          SourceFolder: '$(system.defaultWorkingDirectory)/spring/target'
+          Contents: '*.jar'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/target'
+      - task: Docker@2
+        displayName: Build and push an image to container registry
+        inputs:
+          command: buildAndPush
+          repository: $(imageRepository)
+          dockerfile: '$(dockerfilePath)'
+          containerRegistry: $(dockerRegistryServiceConnection)
+          tags: |
+            $(tag)
+  
