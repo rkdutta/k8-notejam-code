@@ -26,7 +26,7 @@ spec:
               sh 'pwd'
               sh 'ls -l'
               sh 'cd /home/jenkins/agent/workspace/code-compile-build-publish/spring'
-              sh 'ls -'
+              sh 'ls -l'
               sh 'mvn clean install'
             }
         }
