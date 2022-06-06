@@ -12,7 +12,7 @@ spec:
     command:
     - sleep
     args:
-    - infinity
+    - 600
             '''
             defaultContainer 'maven-build-agent'
         }
