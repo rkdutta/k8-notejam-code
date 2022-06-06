@@ -23,6 +23,8 @@ spec:
     stages {
         stage('Build') {
             steps {
+              sh 'echo ${env.WORKSPACE}'
+              sh 'echo ${WORKSPACE}'
               sh 'pwd'
               sh 'ls -l'
               sh 'cd ./spring/'
