@@ -9,6 +9,10 @@ pipeline {
               containers:
               - name: maven-build-agent
                 image: container-registry:5000/private-jdk-alpine
+                command:
+                - sleep
+                args:
+                - infinity
             '''
             defaultContainer 'maven-build-agent'
         }
