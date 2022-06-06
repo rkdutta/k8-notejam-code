@@ -23,11 +23,9 @@ spec:
     stages {
         stage('Build') {
             steps {
-              sh 'echo "${env.WORKSPACE}"'
-              sh 'echo "${WORKSPACE}"'
               sh 'pwd'
               sh 'ls -l'
-              sh 'cd ./spring/'
+              sh 'cd /home/jenkins/agent/workspace/code-compile-build-publish/spring'
               sh 'ls -'
               sh 'mvn clean install'
             }
