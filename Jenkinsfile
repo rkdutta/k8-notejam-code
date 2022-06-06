@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: maven-build-agent
-    image: container-registry:5000/private-jdk-alpine
+    image: container-registry:5000/private-jdk-alpine:latest
     command:
     - sleep
     args:

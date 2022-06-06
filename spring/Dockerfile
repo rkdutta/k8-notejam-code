@@ -2,7 +2,8 @@ FROM openjdk:8-jdk-alpine
 RUN apk add --update-cache \
     curl \
     maven \
-    git
+    git \
+    docker
 
 ARG JAR_FILE=target/*.jar
 ARG APP_USER=spring
