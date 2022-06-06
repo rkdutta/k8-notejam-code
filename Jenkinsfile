@@ -10,6 +10,7 @@ pipeline {
               - name: maven-build-agent
                 image: container-registry:5000/private-jdk-alpine
             '''
+            defaultContainer 'maven-build-agent'
         }
     }
     // triggers {
