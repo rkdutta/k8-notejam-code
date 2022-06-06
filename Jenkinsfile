@@ -31,7 +31,7 @@ spec:
     }
     post {
         always {
-            archiveArtifacts artifacts: "${env.WORKSPACE}/spring/target/*.jar", fingerprint: true
+            archiveArtifacts artifacts: "${env.WORKSPACE}/spring/target/**/*.jar", fingerprint: true
         }
     }
 }
