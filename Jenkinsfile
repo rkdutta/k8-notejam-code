@@ -23,7 +23,9 @@ spec:
     stages {
         stage('Build') {
             steps {
+              sh 'ls'
               sh 'cd spring'
+              sh 'ls'
               sh 'mvn clean install'
             }
         }
