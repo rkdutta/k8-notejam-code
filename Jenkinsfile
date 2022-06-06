@@ -23,11 +23,10 @@ spec:
     stages {
         stage('Build') {
             steps {
-              sh 'pwd'
-              sh 'ls -l'
-              sh 'cd /home/jenkins/agent/workspace/code-compile-build-publish/spring'
-              sh 'ls -l'
-              sh 'mvn clean install'
+                dir("${env.WORKSPACE}/spring"){
+                sh 'ls -l'
+                sh 'mvn clean install'
+              }
             }
         }
     }
