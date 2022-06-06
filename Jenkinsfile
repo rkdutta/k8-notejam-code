@@ -24,6 +24,7 @@ spec:
         stage('Build') {
             steps {
                 dir("${env.WORKSPACE}/spring"){
+                sh 'docker'
                 sh 'mvn clean install'
               }
             }
