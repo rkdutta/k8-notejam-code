@@ -16,9 +16,10 @@ pipeline {
     //     pollSCM('* * * * *')
     // }
     stages {
-        stage('Main') {
+        stage('Build') {
             steps {
-                sh 'hostname'
+              sh 'cd spring'
+              sh 'mvn clean install'
             }
         }
     }
