@@ -24,10 +24,14 @@ spec:
         stage('Build') {
             steps {
                 dir("${env.WORKSPACE}/spring"){
-                sh 'ls -l'
                 sh 'mvn clean install'
               }
             }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: "${env.WORKSPACE}/spring/target/*.jar", fingerprint: true
         }
     }
 }
