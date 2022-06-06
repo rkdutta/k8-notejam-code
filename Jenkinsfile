@@ -23,6 +23,7 @@ spec:
     stages {
         stage('Build') {
             steps {
+              sh 'pwd'
               sh 'ls -l'
               sh 'cd ./spring/'
               sh 'ls -'
