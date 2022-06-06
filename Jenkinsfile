@@ -32,8 +32,8 @@ spec:
             steps {
                 archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
               }
-            }
         }
+
     }
     // post {
     //     always {
