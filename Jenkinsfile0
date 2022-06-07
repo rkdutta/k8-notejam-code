@@ -14,6 +14,9 @@ pipeline {
                   args:
                   - 600
                   volumeMounts:
+                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry.svc.cluster.local:5000/"
+                    name: ca-cert
+                    readOnly: true
                   - mountPath: /var/run/docker.sock
                     name: docker-sock
                 volumes:
