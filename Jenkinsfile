@@ -17,11 +17,18 @@ pipeline {
                   - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry:5000/"
                     name: ca-cert
                     readOnly: true
+                  - mountPath: "/var/run/docker.sock"
+                    name: docker-sock
+                    readOnly: false
                 volumes:
                  - name: ca-cert
                    secret:
                      secretName: certs-secret-ca
                      optional: false
+                 - name: docker-sock
+                   hostPath:
+                      path: /var/run/docker.sock
+                      type: File
             '''
             defaultContainer 'maven-build-agent'
         }
@@ -45,7 +52,6 @@ pipeline {
         }
         stage('Push to Container Repo') {
             steps {
-                   sh 'systemctl start docker'
                    sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
                      sh "docker build -t container-registry:5000/private-notejam:latest ."
