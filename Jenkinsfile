@@ -17,9 +17,8 @@ pipeline {
                   - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry:5000/"
                     name: ca-cert
                     readOnly: true
-                  - mountPath: /var/run
+                  - mountPath: /var/run/docker.sock
                     name: docker-sock
-                    readOnly: true
                 volumes:
                  - name: ca-cert
                    secret:
@@ -27,8 +26,8 @@ pipeline {
                      optional: false
                  - name: docker-sock
                    hostPath:
-                      path: /var/run
-                      type: Directory
+                      path: /var/run/docker.sock
+                      type: File
             '''
             defaultContainer 'maven-build-agent'
         }
