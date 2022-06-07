@@ -13,6 +13,15 @@ pipeline {
                   - sleep
                   args:
                   - 600
+                  volumeMounts:
+                  - mountPath: "/etc/docker/certs.d/container-registry\:5000/"
+                    name: ca-cert
+                    readOnly: true
+                volumes:
+                 - name: ca-cert
+                   secret:
+                     secretName: certs-secret-ca
+                     optional: false
             '''
             defaultContainer 'maven-build-agent'
         }
@@ -25,10 +34,6 @@ pipeline {
         stage('Push to Container Repo') {
             steps {
                    checkout scm
-                   sh 'nslookup container-registry.04-container-registry | grep "Address 1:"'
-                //   sh 'registry_ip=$(nslookup container-registry.04-container-registry | grep Address: | awk '{ print $2}' | grep -v '#')"
-                //   sh "nslookup container-registry.04-container-registry | grep Address  | grep -v '53' | awk '{ print $2 "   container-registry" } ' >> /etc/hosts"
-                   //sh 'cat /etc/hosts'
                    sh 'docker login container-registry.04-container-registry.svc.cluster.local.:5000 -u myuser -p mypasswd'
                 // sh "docker build -t container-registry:5000/private-notejam:latest ."
                 // sh "docker push container-registry:5000/private-notejam:latest ."
