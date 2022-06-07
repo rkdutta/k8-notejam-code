@@ -4,7 +4,7 @@ pipeline {
         kubernetes {
             yaml '''
               apiVersion: v1
-              kind: Pod 
+              kind: Pod
               spec:
                 containers:
                 - name: maven-build-agent
@@ -14,7 +14,7 @@ pipeline {
                   args:
                   - 600
                   volumeMounts:
-                  - mountPath: "/etc/docker/certs.d/container-registry:5000/"
+                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry:5000/"
                     name: ca-cert
                     readOnly: true
                 volumes:
@@ -34,7 +34,7 @@ pipeline {
         stage('Push to Container Repo') {
             steps {
                    checkout scm
-                   sh 'docker login container-registry.04-container-registry.svc.cluster.local.:5000 -u myuser -p mypasswd'
+                   sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
                 // sh "docker build -t container-registry:5000/private-notejam:latest ."
                 // sh "docker push container-registry:5000/private-notejam:latest ."
 
