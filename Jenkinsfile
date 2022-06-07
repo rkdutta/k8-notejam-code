@@ -14,14 +14,19 @@ pipeline {
                   args:
                   - 600
                   volumeMounts:
-                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry:5000/"
+                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry.svc.cluster.local:5000/"
                     name: ca-cert
                     readOnly: true
+                  - mountPath: /var/run/docker.sock
+                    name: docker-sock
                 volumes:
                  - name: ca-cert
                    secret:
                      secretName: certs-secret-ca
                      optional: false
+                 - name: docker-sock
+                   hostPath:
+                      path: /var/run/docker.sock
             '''
             defaultContainer 'maven-build-agent'
         }
@@ -42,6 +47,7 @@ pipeline {
         // }
         stage('Push to Container Repo') {
             steps {
+                   sh 'docker run -d nginx'
                    sh 'nslookup container-registry.04-container-registry.svc'
                    sh 'docker login container-registry:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
