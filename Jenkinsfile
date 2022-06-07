@@ -17,9 +17,9 @@ pipeline {
                   - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry:5000/"
                     name: ca-cert
                     readOnly: true
-                  - mountPath: "/var/run/docker.sock"
+                  - mountPath: /var/run/docker.sock
                     name: docker-sock
-                    readOnly: false
+                    readOnly: true
                 volumes:
                  - name: ca-cert
                    secret:
