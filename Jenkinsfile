@@ -4,9 +4,7 @@ pipeline {
         kubernetes {
             yaml '''
               apiVersion: v1
-              kind: Pod
-              metadata:
-                namespace: 04-container-registry 
+              kind: Pod 
               spec:
                 containers:
                 - name: maven-build-agent
