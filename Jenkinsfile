@@ -27,7 +27,6 @@ pipeline {
                  - name: docker-sock
                    hostPath:
                       path: /var/run/docker.sock
-                      type: File
             '''
             defaultContainer 'maven-build-agent'
         }
