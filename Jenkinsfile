@@ -5,6 +5,8 @@ pipeline {
             yaml '''
               apiVersion: v1
               kind: Pod
+              metadata:
+                namespace: 04-container-registry 
               spec:
                 containers:
                 - name: maven-build-agent
