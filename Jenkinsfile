@@ -38,7 +38,8 @@ pipeline {
                CONTAINER_REGISTRY_CREDS = credentials('container-registry-docker-login-creds')
            }
             steps {
-                sh "docker login container-registry:5000 -u ${CONTAINER_REGISTRY_CREDS_USR} -p ${CONTAINER_REGISTRY_CREDS_PSW}"
+                //sh "docker login container-registry:5000 -u ${CONTAINER_REGISTRY_CREDS_USR} -p ${CONTAINER_REGISTRY_CREDS_PSW}"
+                sh 'docker login container-registry:5000 -u $CONTAINER_REGISTRY_CREDS_USR -p $CONTAINER_REGISTRY_CREDS_PSW'
                 dir("${env.WORKSPACE}/spring"){
                 sh 'mvn clean install'
               }
