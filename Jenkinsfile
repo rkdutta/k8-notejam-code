@@ -33,24 +33,24 @@ spec:
                 archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
               }
         }
-        stage('Push to Container Repo') {
-            steps {
-                // sh 'docker login container-registry:5000 -u myuser -p mypasswd'
-                // sh "docker build -t container-registry:5000/private-notejam:latest ."
-                // sh "docker push container-registry:5000/private-notejam:latest ."
-
-                def customImage = docker.build("my-image:${env.BUILD_ID}",
-                                   "-f ${dockerfile} ./dockerfiles")
-
-
-                docker.withRegistry('https://container-registry:5000', 'e54cac75-d086-430a-932e-91e147687eec') {
-
-                    def customImage = docker.build("my-image:${env.BUILD_ID}")
-                    /* Push the container to the custom Registry */
-                    customImage.push()
-                }
-              }
-        }
+        // stage('Push to Container Repo') {
+        //     steps {
+        //         // sh 'docker login container-registry:5000 -u myuser -p mypasswd'
+        //         // sh "docker build -t container-registry:5000/private-notejam:latest ."
+        //         // sh "docker push container-registry:5000/private-notejam:latest ."
+        //
+        //         def customImage = docker.build("my-image:${env.BUILD_ID}",
+        //                            "-f ${dockerfile} ./dockerfiles")
+        //
+        //
+        //         docker.withRegistry('https://container-registry:5000', 'e54cac75-d086-430a-932e-91e147687eec') {
+        //
+        //             def customImage = docker.build("my-image:${env.BUILD_ID}")
+        //             /* Push the container to the custom Registry */
+        //             customImage.push()
+        //         }
+        //       }
+        // }
 
     }
     // post {
