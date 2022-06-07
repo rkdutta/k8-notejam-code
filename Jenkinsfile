@@ -31,15 +31,6 @@ pipeline {
     // }
 
     stages {
-        stage('Push to Container Repo') {
-            steps {
-                   checkout scm
-                   sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
-                   sh "docker build -t container-registry:5000/private-notejam:latest ."
-                   sh "docker push container-registry:5000/private-notejam:latest ."
-
-              }
-        }
         stage('Build') {
             steps {
                 dir("${env.WORKSPACE}/spring"){
@@ -52,8 +43,15 @@ pipeline {
                 archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
               }
         }
-
-
+        stage('Push to Container Repo') {
+            steps {
+                   sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
+                   dir("${env.WORKSPACE}/spring"){
+                     sh "docker build -t container-registry:5000/private-notejam:latest ."
+                     sh "docker push container-registry:5000/private-notejam:latest"
+                   }
+              }
+        }
     }
     // post {
     //     always {
