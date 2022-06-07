@@ -3,16 +3,16 @@ pipeline {
     agent {
         kubernetes {
             yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven-build-agent
-    image: container-registry:5000/private-jdk-alpine:latest
-    command:
-    - sleep
-    args:
-    - 600
+              apiVersion: v1
+              kind: Pod
+              spec:
+                containers:
+                - name: maven-build-agent
+                  image: container-registry:5000/private-jdk-alpine:latest
+                  command:
+                  - sleep
+                  args:
+                  - 600
             '''
             defaultContainer 'maven-build-agent'
         }
