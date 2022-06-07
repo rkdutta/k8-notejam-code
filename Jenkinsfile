@@ -24,6 +24,7 @@ pipeline {
     stages {
         stage('Push to Container Repo') {
             steps {
+                   sh 'nslookup container-registry.04-container-registry'
                    sh 'docker login container-registry:5000 -u myuser -p mypasswd'
                 // sh "docker build -t container-registry:5000/private-notejam:latest ."
                 // sh "docker push container-registry:5000/private-notejam:latest ."
