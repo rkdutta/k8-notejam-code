@@ -42,7 +42,6 @@ pipeline {
         // }
         stage('Push to Container Repo') {
             steps {
-                   sh 'docker run -d nginx'
                    sh 'nslookup container-registry.04-container-registry.svc'
                    sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
