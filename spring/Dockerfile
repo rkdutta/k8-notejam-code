@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-ARG JAR_FILE=target1/*.jar
+ARG JAR_FILE=target/*.jar
 ARG APP_USER=spring
 ARG WORK_DIR="/app"
 ARG APP_LOCATION="/app.jar"
