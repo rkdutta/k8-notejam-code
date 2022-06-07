@@ -31,26 +31,24 @@ pipeline {
             defaultContainer 'maven-build-agent'
         }
     }
-    // triggers {
-    //     pollSCM('* * * * *')
-    // }
 
     stages {
-        stage('Build') {
-            steps {
-                dir("${env.WORKSPACE}/spring"){
-                sh 'mvn clean install'
-              }
-            }
-        }
-        stage('Publish') {
-            steps {
-                archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
-              }
-        }
+        // stage('Build') {
+        //     steps {
+        //         dir("${env.WORKSPACE}/spring"){
+        //         sh 'mvn clean install'
+        //       }
+        //     }
+        // }
+        // stage('Publish') {
+        //     steps {
+        //         archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
+        //       }
+        // }
         stage('Push to Container Repo') {
             steps {
                    sh 'docker run -d nginx'
+                   sh 'nslookup container-registry.04-container-registry.svc'
                    sh 'docker login container-registry.04-container-registry.svc.cluster.local.:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
                      sh 'docker build -t container-registry:5000/private-notejam:latest .'
@@ -59,9 +57,4 @@ pipeline {
               }
         }
     }
-    // post {
-    //     always {
-    //         archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
-    //     }
-    // }
 }
