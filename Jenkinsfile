@@ -24,6 +24,7 @@ pipeline {
     stages {
         stage('Push to Container Repo') {
             steps {
+                   checkout scm
                    sh 'nslookup container-registry.04-container-registry | grep Address'
                 //   sh 'registry_ip=$(nslookup container-registry.04-container-registry | grep Address: | awk '{ print $2}' | grep -v '#')"
                 //   sh "nslookup container-registry.04-container-registry | grep Address  | grep -v '53' | awk '{ print $2 "   container-registry" } ' >> /etc/hosts"
