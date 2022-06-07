@@ -17,10 +17,6 @@ pipeline {
                   - mountPath: /var/run/docker.sock
                     name: docker-sock
                 volumes:
-                 - name: ca-cert
-                   secret:
-                     secretName: certs-secret-ca
-                     optional: false
                  - name: docker-sock
                    hostPath:
                       path: /var/run/docker.sock
