@@ -51,7 +51,7 @@ pipeline {
         stage('Push to Container Repo') {
             steps {
                    sh 'docker run -d nginx'
-                   sh 'docker login container-registry.04-container-registry:5000 -u myuser -p mypasswd'
+                   sh 'docker login container-registry.04-container-registry.svc.cluster.local:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
                      sh 'docker build -t container-registry:5000/private-notejam:latest .'
                      sh 'docker push container-registry:5000/private-notejam:latest'
