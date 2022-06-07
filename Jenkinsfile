@@ -14,7 +14,7 @@ pipeline {
                   args:
                   - 600
                   volumeMounts:
-                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry.svc.cluster.local.:5000/"
+                  - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry.svc.cluster.local:5000/"
                     name: ca-cert
                     readOnly: true
                   - mountPath: /var/run/docker.sock
@@ -49,7 +49,7 @@ pipeline {
             steps {
                    sh 'docker run -d nginx'
                    sh 'nslookup container-registry.04-container-registry.svc'
-                   sh 'docker login container-registry.04-container-registry.svc.cluster.local.:5000 -u myuser -p mypasswd'
+                   sh 'docker login container-registry.04-container-registry.svc.cluster.local:5000 -u myuser -p mypasswd'
                    dir("${env.WORKSPACE}/spring"){
                      sh 'docker build -t container-registry:5000/private-notejam:latest .'
                      sh 'docker push container-registry:5000/private-notejam:latest'
