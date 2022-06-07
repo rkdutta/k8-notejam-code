@@ -25,7 +25,8 @@ pipeline {
         stage('Push to Container Repo') {
             steps {
                    sh 'nslookup container-registry.04-container-registry | grep Address'
-                   sh "nslookup container-registry.04-container-registry | grep Address  | grep -v '53' | awk '{ print $2 "   container-registry" } ' >> /etc/hosts"
+                   sh "registry_ip=$(nslookup container-registry.04-container-registry | grep Address: | awk '{ print $2}' | grep -v '#')"
+                //   sh "nslookup container-registry.04-container-registry | grep Address  | grep -v '53' | awk '{ print $2 "   container-registry" } ' >> /etc/hosts"
                    sh 'cat /etc/hosts'
                    sh 'docker login container-registry:5000 -u myuser -p mypasswd'
                 // sh "docker build -t container-registry:5000/private-notejam:latest ."
