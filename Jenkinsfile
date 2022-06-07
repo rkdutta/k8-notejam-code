@@ -41,18 +41,21 @@ pipeline {
             }
         }
         stage('Publish') {
-            steps {
-                archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
-              }
+          steps {
+              archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
+            }
         }
         stage('Push to Container Repo') {
-            steps {
-                   sh 'docker login container-registry:5000 -u myuser -p mypasswd'
-                   dir("${env.WORKSPACE}/spring"){
-                     sh "docker build -t container-registry:5000/private-notejam:${env.BUILD_ID} ."
-                     sh "docker push container-registry:5000/private-notejam:${env.BUILD_ID}"
-                   }
-              }
+          environment {
+               CONTAINER_REGISTRY_CREDS = credentials('container-registry-docker-login-creds')
+           }
+          steps {
+                 sh "docker login container-registry:5000 -u ${CONTAINER_REGISTRY_CREDS_USR} -p ${CONTAINER_REGISTRY_CREDS_PSW}"
+                 dir("${env.WORKSPACE}/spring"){
+                   sh "docker build -t container-registry:5000/private-notejam:${env.BUILD_ID} ."
+                   sh "docker push container-registry:5000/private-notejam:${env.BUILD_ID}"
+                 }
+            }
         }
     }
 }
