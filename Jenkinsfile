@@ -38,7 +38,7 @@ pipeline {
               archiveArtifacts artifacts: "spring/target/**/*.jar", fingerprint: true
             }
         }
-        stage('Push to Container Repo') {
+        stage('Push') {
           environment {
                CONTAINER_REGISTRY_CREDS = credentials('container-registry-docker-login-creds')
            }
