@@ -17,11 +17,16 @@ pipeline {
                   - mountPath: "/etc/docker/certs.d/container-registry.04-container-registry.svc.cluster.local:5000/"
                     name: ca-cert
                     readOnly: true
+                  - mountPath: /var/run/docker.sock
+                    name: docker-sock
                 volumes:
                  - name: ca-cert
                    secret:
                      secretName: certs-secret-ca
                      optional: false
+                 - name: docker-sock
+                   hostPath:
+                      path: /var/run/docker.sock
             '''
             defaultContainer 'maven-build-agent'
         }
