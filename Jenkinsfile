@@ -40,7 +40,7 @@ pipeline {
         }
         stage('Push') {
           environment {
-               CONTAINER_REGISTRY_CREDS = credentials('container-registry-docker-login-creds')
+               CONTAINER_REGISTRY_CREDS = credentials('CONTAINER_REGISTRY_CREDS')
            }
           steps {
                  sh 'docker login container-registry:5000 -u $CONTAINER_REGISTRY_CREDS_USR -p $CONTAINER_REGISTRY_CREDS_PSW'
