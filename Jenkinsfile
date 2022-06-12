@@ -47,6 +47,7 @@ pipeline {
                  dir("${env.WORKSPACE}/spring"){
                    sh "docker build -t container-registry:5000/private-notejam:${env.BUILD_ID} ."
                    sh "docker push container-registry:5000/private-notejam:${env.BUILD_ID}"
+                   sh "docker image rm container-registry:5000/private-notejam:${env.BUILD_ID}"
                  }
             }
         }
